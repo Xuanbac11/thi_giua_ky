@@ -70,9 +70,7 @@
     </div>
     <script>
         var baithi = document.querySelector("#baithi");
-        var tan = ['Trung bình tấn',
-            'Đinh tấn',
-            'Tam giác tấn']
+        var tan = ['Trung bình tấn', 'Đinh tấn', 'Tam giác tấn']
         var traiphai = ['trái', 'phải']
         var chem = ['1', '2', '3', '4']
         var dam = ['thẳng', 'thấp', 'múc', 'móc', 'bật ngược']
@@ -81,13 +79,22 @@
         var rd_tan, rd_traiphai, rd_chem, rd_dam, rd_gat, rd_cho
 
         var chonbai = () => {
-            daobai()
+            var tan1 = daobai()
             var baithi_chem = "Bài chém : " + tan[rd_tan] + " " + traiphai[rd_traiphai] + " - chém số " + chem[rd_chem];
-            daobai()
+            var tan2 = daobai()
+            while (tan1 == tan2) {
+                tan2 = daobai()
+            }
             var baithi_dam = "</br>" + "Bài đấm: " + tan[rd_tan] + " " + traiphai[rd_traiphai] + " - đấm " + dam[rd_dam];
-            daobai()
+            var tan3 = daobai()
+            while (tan2 == tan3) {
+                tan3 = daobai()
+            }
             var baithi_gat = "</br>" + "Bài gạt: " + tan[rd_tan] + " " + traiphai[rd_traiphai] + " - gạt số " + gat[rd_gat];
-            daobai()
+            var tan4 = daobai()
+            while (tan3 == tan4) {
+                tan4 = daobai()
+            }
             var baithi_tro = "</br>" + "Bài chỏ: " + tan[rd_tan] + " " + traiphai[rd_traiphai] + " - chỏ số " + cho[rd_cho];
 
             baithi.innerHTML = baithi_chem + "</br>" + baithi_dam + "</br>" + baithi_gat + "<br>" + baithi_tro;
@@ -101,6 +108,7 @@
             rd_dam = Math.round(Math.random() * 4)
             rd_gat = Math.round(Math.random() * 3)
             rd_cho = Math.round(Math.random() * 1)
+            return rd_tan;
         }
     </script>
 </body>
