@@ -28,11 +28,21 @@
             width: 70%;
         }
 
+
+
+        input {
+            height: 35px;
+        }
+
         h4 {
             color: red;
             font-size: 20px;
             text-align: left;
             margin-left: 80px;
+        }
+
+        .btn button {
+            margin-left: 10px;
         }
 
         @media only screen and (max-width:46.1875em) {
@@ -65,44 +75,207 @@
     <div class="container">
         <img src="thao.jpg" alt="">
         <h2>Vovinam - Việt Võ Đạo</h2>
-        <button type="button" onclick="chonbai()">Chọn bài thi</button>
+        <button type="button" onclick="chonbai()" class="btnChonbai">Chọn bài thi</button>
         <h4 id="baithi"></h4>
-    </div>
-    <script>
-        var baithi = document.querySelector("#baithi");
-        var tan = ['Trung bình tấn',
-            'Đinh tấn',
-            'Tam giác tấn']
-        var traiphai = ['trái', 'phải']
-        var chem = ['1', '2', '3', '4']
-        var dam = ['thẳng', 'thấp', 'múc', 'móc', 'bật ngược']
-        var gat = ['1', '2', '3', '4']
-        var cho = ['1', '2']
-        var rd_tan, rd_traiphai, rd_chem, rd_dam, rd_gat, rd_cho
-
-        var chonbai = () => {
-            daobai()
-            var baithi_chem = "Bài chém : " + tan[rd_tan] + " " + traiphai[rd_traiphai] + " - chém số " + chem[rd_chem];
-            daobai()
-            var baithi_dam = "</br>" + "Bài đấm: " + tan[rd_tan] + " " + traiphai[rd_traiphai] + " - đấm " + dam[rd_dam];
-            daobai()
-            var baithi_gat = "</br>" + "Bài gạt: " + tan[rd_tan] + " " + traiphai[rd_traiphai] + " - gạt số " + gat[rd_gat];
-            daobai()
-            var baithi_tro = "</br>" + "Bài chỏ: " + tan[rd_tan] + " " + traiphai[rd_traiphai] + " - chỏ số " + cho[rd_cho];
-
-            baithi.innerHTML = baithi_chem + "</br>" + baithi_dam + "</br>" + baithi_gat + "<br>" + baithi_tro;
+        <hr>
+        <h1 class="timer">
+            <span class="minutes" id="minutes">00</span> :
+            <span class="minutes" id="minutes">00</span> .
+            <span class="milliseconds" id="milliseconds">000</span>
+        </h1>
+        <div class="btn">
+            <button class="toggle">Start</button>
+            <button class="reset">Reset</button>
+        </div>
 
 
-        }
-        var daobai = () => {
-            rd_tan = Math.round(Math.random() * 2)
-            rd_traiphai = Math.round(Math.random() * 1)
-            rd_chem = Math.round(Math.random() * 3)
-            rd_dam = Math.round(Math.random() * 4)
-            rd_gat = Math.round(Math.random() * 3)
-            rd_cho = Math.round(Math.random() * 1)
-        }
-    </script>
+        <script>
+            var baithi = document.querySelector("#baithi");
+            var tan = ['Trung bình tấn', 'Đinh tấn', 'Tam giác tấn']
+            var traiphai = ['trái', 'phải']
+            var chem = ['1', '2', '3', '4']
+            var dam = ['thẳng', 'thấp', 'múc', 'móc', 'bật ngược']
+            var gat = ['1', '2', '3', '4']
+            var cho = ['1', '2']
+            var rd_tan, rd_traiphai, rd_chem, rd_dam, rd_gat, rd_cho
+            var dem = +0;
+            var input = `</br><textarea rows="2" cols="35"></textarea>`
+            var diem = `<select id="bai1">
+                        <option value="0">0</option>
+                        <option value="0.5">0.5</option>
+                        <option value="1">1</option>
+                        <option value="1.5">1.5</option>
+                        <option value="2">2</option>
+                    </select>`
+            var phut = document.querySelector("#minutes");
+            var giay = document.querySelector("#seconds");
+            var minigiay = document.querySelector("#milliseconds");
+            var chonbai = () => {
+                var tan1 = daobai()
+                var tp1 = rd_traiphai
+                var baitan1 = tan[rd_tan] + " " + traiphai[rd_traiphai];
+                var baithi_chem = "Bài chém : " + tan[rd_tan] + " " + traiphai[rd_traiphai] + " - chém số " + chem[rd_chem];
+                baithi_chem += `</br> ${diem} ${input}`
+                var tan2 = daobai()
+                var tp2 = rd_traiphai
+                while (tan1 == tan2) {
+                    tan2 = daobai()
+                }
+                var baitan2 = tan[rd_tan] + " " + traiphai[tp2];
+                var baithi_dam = "</br>" + "Bài đấm: " + tan[rd_tan] + " " + traiphai[tp2] + " - đấm " + dam[rd_dam];
+                baithi_dam += `</br> ${diem} ${input}`
+                var tan3 = daobai()
+                var tp3 = rd_traiphai
+                while (tan2 == tan3) {
+                    tan3 = daobai()
+                }
+                var baitan3 = tan[rd_tan] + " " + traiphai[tp3]
+                if (baitan1 == baitan3) {
+                    tp3 = (tp1 == 0) ? 1 : 0
+                }
+                var baithi_gat = "</br>" + "Bài gạt: " + tan[rd_tan] + " " + traiphai[tp3] + " - gạt số " + gat[rd_gat];
+                baithi_gat += `</br> ${diem} ${input}`
+                var tan4 = daobai()
+                var tp4 = rd_traiphai
+                while (tan3 == tan4 || tan1 == tan4) {
+                    tan4 = daobai()
+                }
+                var baitan4 = tan[rd_tan] + " " + traiphai[tp4]
+                if (baitan1 == baitan4) {
+                    tp4 = tp1 == 0 ? 1 : 0
+                }
+                if (baitan2 == baitan4) {
+                    tp4 = tp2 == 0 ? 1 : 0
+                }
+                var baithi_tro = "</br>" + "Bài chỏ: " + tan[rd_tan] + " " + traiphai[tp4] + " - chỏ số " + cho[rd_cho];
+                baithi_tro += `</br> ${diem} ${input}`
+                baithi.innerHTML = baithi_chem + "</br>" + baithi_dam + "</br>" + baithi_gat + "<br>" + baithi_tro;
+
+                // phut.innerHTML = "00"
+                // giay.innerHTML = "00"
+                // minigiay.innerHTML = "000"
+                // var dung = Stopwatch(null);
+                // dung.reset();
+                // console.log(minigiay.innerHTML);
+                // console.dir(minigiay)
+            }
+            var daobai = () => {
+                rd_tan = Math.round(Math.random() * 2)
+                rd_traiphai = Math.round(Math.random() * 1)
+                rd_chem = Math.round(Math.random() * 3)
+                rd_dam = Math.round(Math.random() * 4)
+                rd_gat = Math.round(Math.random() * 3)
+                rd_cho = Math.round(Math.random() * 1)
+                return rd_tan;
+            }
+
+
+
+            function Stopwatch(elem) {
+                var time = 0;
+                var offset;
+                var interval;
+
+                function lapOn() {
+                    var lapTime = lapContainer.appendChild(document.createElement("li"))
+                    lapTime.innerHTML = elem.textContent;
+                    lapTime.classList = 'lapItem'
+                }
+
+                function update() {
+                    if (this.isOn) {
+                        time += delta();
+                    }
+                    elem.textContent = timeFormatter(time);
+                }
+
+                function delta() {
+                    var now = Date.now();
+                    var timePassed = now - offset;
+
+                    offset = now;
+
+                    return timePassed;
+                }
+
+                function timeFormatter(time) {
+                    time = new Date(time);
+
+                    var minutes = time.getMinutes().toString();
+                    var seconds = time.getSeconds().toString();
+                    var milliseconds = time.getMilliseconds().toString();
+
+                    if (minutes.length < 2) {
+                        minutes = '0' + minutes;
+                    }
+
+                    if (seconds.length < 2) {
+                        seconds = '0' + seconds;
+                    }
+
+                    while (milliseconds.length < 3) {
+                        milliseconds = '0' + milliseconds;
+                    }
+
+                    var result = minutes + ' : ' + seconds + ' . ' + milliseconds;
+
+                    return result;
+                }
+
+                this.start = function () {
+                    interval = setInterval(update.bind(this), 1);
+                    offset = Date.now();
+                    this.isOn = true;
+                };
+
+                this.stop = function () {
+                    clearInterval(interval);
+                    interval = null;
+                    this.isOn = false;
+                };
+
+                this.reset = function () {
+                    time = 0;
+                    interval = null;
+                    update();
+                };
+            }
+
+            //Main
+            var timer = document.querySelector('.timer');
+            var toggleBtn = document.querySelector('.toggle');
+            var resetBtn = document.querySelector('.reset');
+
+            var watch = new Stopwatch(timer);
+
+            function start() {
+                toggleBtn.textContent = 'Stop';
+                toggleBtn.classList.toggle("on");
+                watch.start();
+            }
+
+            function stop() {
+                toggleBtn.textContent = 'Start';
+                toggleBtn.classList.toggle("on")
+                watch.stop();
+            }
+
+            function stopWhenOn() {
+                toggleBtn.textContent = 'Start';
+                toggleBtn.classList.toggle("on")
+                watch.stop();
+                watch.reset();
+            }
+
+            toggleBtn.addEventListener('click', function () {
+                watch.isOn ? stop() : start();
+            });
+
+            resetBtn.addEventListener('click', function () {
+                watch.isOn ? stopWhenOn() : watch.reset();
+                // stop();
+            });
+        </script>
 </body>
 
 </html>
